@@ -1,0 +1,12 @@
+news:
+    title: Новости
+    page: Страница
+    list:
+        id: Идентификатор новости
+        created: Дата новости
+        publish_status:
+            title: Опубликовано
+            yes: да
+            no: нет
+        announce: Краткий текст новости
+        description: Полный текст новости

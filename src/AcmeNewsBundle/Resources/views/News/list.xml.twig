@@ -1,0 +1,11 @@
+{% autoescape %}
+<?xml version="1.0" encoding="UTF-8"?>
+    <list>
+        {% for post in news %}
+        <item id="{{ post.getId() }}" date="{{ post.getCreated()|date('Y-m-d H:i:s') }}">
+            <announce>{{ post.getAnnounce() }}</announce>
+            <description>{{ post.getDescription() }}</description>
+        </item>
+        {% endfor %}
+    </list>
+{% endautoescape %}

@@ -1,0 +1,19 @@
+<html>
+<head>
+    <title>{{ post.getTitle() }} - {{ 'news.title'|trans }}</title>
+</head>
+<body>
+<h1>{{ post.getTitle() }}</h1>
+<span style="color: #808080; font-size: small; display: block;">{{ post.getCreated()|date('d.m.Y H:i') }}</span>
+<cite>{{ post.getAnnounce() }}</cite>
+<p>{{ post.getDescription() }}</p>
+<h2>Другие новости: </h2>
+{% for randomPost in randomPosts %}
+    <div style="width: 25%; float: left;">
+        <a href="{{ path('news_view', {'id': randomPost.getId()}) }}">{{ randomPost.getTitle() }}</a>
+        <p>{{ randomPost.getAnnounce() }}</p>
+    </div>
+{% endfor %}
+<div style="clear: both;"></div>
+</body>
+</html>

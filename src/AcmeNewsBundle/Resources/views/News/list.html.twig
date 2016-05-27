@@ -1,0 +1,45 @@
+<html>
+<head>
+    <title>{{ 'news.title'|trans }}</title>
+</head>
+<body>
+<h1>{{ 'news.title'|trans }}</h1>
+<h4>{{ 'news.page'|trans }}: {{ page }}</h4>
+    <table>
+        <thead>
+            <th>{{ 'news.list.id'|trans }}</th>
+            <th>{{ 'news.list.created'|trans }}</th>
+            <th>{{ 'news.list.publish_status.title'|trans }}</th>
+            <th>{{ 'news.list.announce'|trans }}</th>
+        </thead>
+        <tbody>
+            {% for post in news %}
+                <tr>
+                    <td>{{ post.getId() }}</td>
+                    <td>{{ post.getCreated()|date('d.m.Y H:i') }}</td>
+                    <td>
+                        {% if post.isPublished() %}
+                            {{ 'news.list.publish_status.yes'|trans }}
+                        {% else %}
+                            {{ 'news.list.publish_status.no'|trans }}
+                        {% endif %}
+                    </td>
+                    <td><a href="{{ path('news_view', {'id': post.getId()}) }}">{{ post.getAnnounce() }}</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% for p in 1..pageCount %}
+        {% if p == page %}
+            {{ p }}
+        {% else %}
+            {% if p == 1 %}
+                {% set url = path('news_list') %}
+            {% else %}
+                {% set url = path('news_list') ~ '?page=' ~ p %}
+            {% endif %}
+            <a href="{{ url }}">{{ p }}</a>
+        {% endif %}
+    {% endfor %}
+</body>
+</html>

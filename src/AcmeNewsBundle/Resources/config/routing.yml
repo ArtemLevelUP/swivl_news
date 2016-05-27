@@ -1,0 +1,13 @@
+news_list:
+    path: /news
+    defaults: { _controller: AcmeNewsBundle:News:list }
+
+news_view:
+    path: /news/{id}
+    defaults: { _controller: AcmeNewsBundle:News:view }
+    requirements:
+        id: \d+
+
+news_list_xml:
+    path: /news.xml
+    defaults: { _controller: AcmeNewsBundle:News:listXML }
