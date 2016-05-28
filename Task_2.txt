@@ -13,4 +13,13 @@ c) SELECT f.`Name`, COUNT(*) FROM `Firms` as f LEFT JOIN `Phones` as p ON f.`id`
 d) SELECT f.`Name` FROM `Firms` as f LEFT JOIN `Phones` as p ON f.`id` = p.`FirmID` GROUP BY f.`Name` HAVING COUNT(*) < 2
 e) SELECT f.`Name`, COUNT(*) FROM `Firms` as f LEFT JOIN `Phones` as p ON f.`id` = p.`FirmID` GROUP BY f.`Name` ORDER BY COUNT(*) DESC LIMIT 0, 1;
 
+2. a. Вывести общий объем поставок каждого из продуктов для каждой фирмы с указанием
+      даты последней поставки
+   b. Аналогично предыдущему пункту, но за последние 60 дней. Если поставки
+      какого-либо из товаров для компании в этот период отсутствовали, вывести в
+      столбце объема 'No data'
+
+a) SELECT c.`name`, SUM(sh.`quantity`), MAX(sh.`shipdate`) FROM `company` as c JOIN `shipment` as sh ON c.`compid` = sh.`compid` GROUP BY c.`name`;
+b) SELECT c.`name`, IFNULL(SUM(sh.`quantity`), 'No data') as sum, IFNULL(MAX(sh.`shipdate`), '') as lastship FROM `company` as c LEFT JOIN `shipment` as sh ON c.`compid` = sh.`compid` WHERE sh.`shipdate` > DATE_SUB(CURDATE(),INTERVAL +60 DAY) GROUP BY c.`name`
+
 
