@@ -1,0 +1,16 @@
+1. Написать SQL-запросы:
+   a. Вернуть название фирмы и ее телефон. В результате должны быть представлены
+   все фирмы по одному разу. Если у фирмы нет телефона, нужно вернуть пробел или
+   прочерк. Если у фирмы несколько телефонов, нужно вернуть любой из них.
+   b. Вернуть все фирмы, не имеющие телефонов.
+   c. Вернуть все фирмы, имеющие не менее 2-х телефонов.
+   d. Вернуть все фирмы, имеющие менее 2-х телефонов.
+   e. Вернуть фирму, имеющую максимальное кол-во телефонов.
+
+a) SELECT f.`Name`, IFNULL( p.`Phone`, '-') FROM `Firms` as f LEFT JOIN `Phones` as p ON f.`id` = p.`FirmID` GROUP BY f.`Name`;
+b) SELECT f.`Name` FROM `Firms` as f LEFT JOIN `Phones` as p ON f.`id` = p.`FirmID` WHERE p.`Phone` IS NULL;
+c) SELECT f.`Name`, COUNT(*) FROM `Firms` as f LEFT JOIN `Phones` as p ON f.`id` = p.`FirmID` GROUP BY f.`Name` HAVING COUNT(*) >= 2;
+d) SELECT f.`Name` FROM `Firms` as f LEFT JOIN `Phones` as p ON f.`id` = p.`FirmID` GROUP BY f.`Name` HAVING COUNT(*) < 2
+e) SELECT f.`Name`, COUNT(*) FROM `Firms` as f LEFT JOIN `Phones` as p ON f.`id` = p.`FirmID` GROUP BY f.`Name` ORDER BY COUNT(*) DESC LIMIT 0, 1;
+
+
